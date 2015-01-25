@@ -4,7 +4,6 @@
 /*
 -----------------------------------------------------------------------------------*/
 
-
 /*----------------------------------------------------*/
 /* Preloader
 ------------------------------------------------------ */
@@ -82,7 +81,7 @@ function parallax() {
 ------------------------------------------------------*/
 
 	var sections = $("section");
-	var navigation_links = $("#left-nav a");
+	var navigation_links = $("#m-nav a");
 
 	sections.waypoint({
 
@@ -93,7 +92,7 @@ function parallax() {
 			active_section = $(this);
 			if (direction === "up") active_section = active_section.prev();
 
-			var active_link = $('#left-nav a[href="#' + active_section.attr("id") + '"]');
+			var active_link = $('#m-nav a[href="#' + active_section.attr("id") + '"]');
 
          navigation_links.parent().removeClass("current");
 			active_link.parent().addClass("current");
@@ -135,46 +134,25 @@ function parallax() {
 /*	Fade In/Out Primary Navigation
 ------------------------------------------------------*/
 
-  $('#menu').click(function(){
-    $(document.body).toggleClass("show-menu");
-    $('.menu').toggleClass("close-menu");
-  });
+   $(window).on('scroll', function() {
 
+		var h = $('header').height();
+		var y = $(window).scrollTop();
+      var nav = $('#m-nav');
 
-  var Menu = {
-    
-    el: {
-      ham: $('.menu'),
-      menuTop: $('.menu-top'),
-      menuMiddle: $('.menu-middle'),
-      menuBottom: $('.menu-bottom')
-    },
-    
-    init: function() {
-      Menu.bindUIactions();
-    },
-    
-    bindUIactions: function() {
-      Menu.el.ham
-          .on(
-            'click',
-          function(event) {
-          Menu.activateMenu(event);
-          event.preventDefault();
-        }
-      );
-    },
-    
-    activateMenu: function() {
-      Menu.el.menuTop.toggleClass('menu-top-click');
-      Menu.el.menuMiddle.toggleClass('menu-middle-click');
-      Menu.el.menuBottom.toggleClass('menu-bottom-click'); 
-    }
-  };
+	   if ( (y > h*.20) && (y < h) && ($(window).outerWidth() > 768 ) ) {
+	      nav.fadeOut('fast');
+	   }
+      else {
+         if (y < h*.20) {
+            nav.removeClass('opaque').fadeIn('fast');
+         }
+         else {
+            nav.addClass('opaque').fadeIn('fast');
+         }
+      }
 
-  Menu.init();
-
-/* Animate Left Menu */ 
+	});
 
 
 /*----------------------------------------------------*/
@@ -229,12 +207,12 @@ function parallax() {
 
     // main directions
       map = new GMaps({
-        el: '#map', lat: 23.790223, lng: 90.414036, zoom: 13, zoomControl : true, 
+        el: '#map', lat: 43.009597, lng: -81.273734, zoom: 13, zoomControl : true, 
         zoomControlOpt: { style : 'SMALL', position: 'TOP_LEFT' }, panControl : false, scrollwheel: false
       });
     // add address markers
-    map.addMarker({ lat: 23.790223, lng: 90.414036, title: 'BD InfoSys',
-      infoWindow: { content: '<p>Building # 2, Plot # 111, Road # 35, Gulshan - 2, Dhaka</p>' } });
+    map.addMarker({ lat: 43.009597, lng: -81.273734, title: 'University of Western Ontario',
+      infoWindow: { content: '<p>University of Western Ontario, ON, Canada</p>' } });
 
 /*----------------------------------------------------*/
 /*	contact form
